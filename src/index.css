@@ -1,0 +1,206 @@
+/* ============================================================
+   Pokedex Web — CSS global (RNF02 responsividade, RNF05 a11y)
+   ============================================================ */
+:root {
+  --c-bg: #f7f7f7;
+  --c-surface: #ffffff;
+  --c-text: #1f2430;
+  --c-muted: #6b7280;
+  --c-border: #e5e7eb;
+  --c-primary: #e3350d;
+  --c-primary-dark: #c12b06;
+  --c-gold: #f5c04a;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 8px 20px rgba(16, 24, 40, 0.08);
+  --radius: 12px;
+
+  /* Cores por tipo (RF02) */
+  --t-normal: #a8a77a;
+  --t-fire: #ee8130;
+  --t-water: #6390f0;
+  --t-electric: #f7d02c;
+  --t-grass: #7ac74c;
+  --t-ice: #96d9d6;
+  --t-fighting: #c22e28;
+  --t-poison: #a33ea1;
+  --t-ground: #e2bf65;
+  --t-flying: #a98ff3;
+  --t-psychic: #f95587;
+  --t-bug: #a6b91a;
+  --t-rock: #b6a136;
+  --t-ghost: #735797;
+  --t-dragon: #6f35fc;
+  --t-dark: #705746;
+  --t-steel: #b7b7ce;
+  --t-fairy: #d685ad;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { margin: 0; min-height: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--c-bg);
+  color: var(--c-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+.app > :not(.navbar) { flex: 1; }
+.page { width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; }
+.page__title { margin: 0 0 16px; }
+.page__meta { color: var(--c-muted); font-size: 0.88rem; margin-bottom: 14px; }
+.page__actions { display: flex; justify-content: center; margin-top: 24px; }
+
+/* ---------- Navbar (RF05) ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 16px;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.navbar__brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--c-primary); text-decoration: none; padding: 10px 0; }
+.navbar__logo { width: 28px; height: 28px; }
+.navbar__nav { display: flex; gap: 4px; }
+.navbar__link { padding: 10px 12px; color: var(--c-muted); text-decoration: none; border-radius: 8px; font-weight: 500; }
+.navbar__link:hover { color: var(--c-text); }
+.navbar__link--active { color: var(--c-primary); background: rgba(227, 53, 13, 0.08); }
+.navbar__badge {
+  display: inline-block; margin-left: 6px; padding: 1px 7px;
+  background: var(--c-primary); color: #fff; border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+}
+
+/* ---------- Home: controles ---------- */
+.toolbar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.search { position: relative; display: flex; align-items: center; max-width: 440px; }
+.search__icon { position: absolute; left: 12px; color: var(--c-muted); pointer-events: none; }
+.search__input {
+  width: 100%; padding: 10px 36px 10px 40px; border: 1px solid var(--c-border);
+  border-radius: 999px; font-size: 1rem; background: var(--c-surface); outline: none;
+}
+.search__input:focus-visible { border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(227, 53, 13, 0.15); }
+.search__clear { position: absolute; right: 10px; border: 0; background: none; cursor: pointer; color: var(--c-muted); font-size: 1.2rem; line-height: 1; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+.filter-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+  border: 1px solid var(--c-border); border-radius: 999px; background: var(--c-surface);
+  cursor: pointer; font-size: 0.85rem; text-transform: capitalize; color: var(--c-text);
+}
+.filter-chip:hover { border-color: var(--c-muted); }
+.filter-chip--active { border-color: var(--c-primary); color: var(--c-primary); font-weight: 600; }
+.filter-chip__count { font-size: 0.72rem; opacity: 0.7; }
+
+/* ---------- Grade (RF01) ---------- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.game-meta { color: var(--c-muted); font-size: 0.88rem; margin-bottom: 14px; }
+
+.card {
+  position: relative; background: var(--c-surface); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden; transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.card--fav { border: 2px solid var(--c-gold); }
+.card__link { display: block; padding: 16px; text-decoration: none; color: inherit; }
+.card__sprite { display: flex; align-items: center; justify-content: center; height: 96px; margin-bottom: 8px; }
+.card__sprite img { max-width: 100%; max-height: 96px; object-fit: contain; image-rendering: pixelated; }
+.card__number { color: var(--c-muted); font-size: 0.78rem; font-weight: 600; }
+.card__name { margin: 2px 0 8px; font-size: 1.05rem; text-transform: capitalize; }
+.card__types { display: flex; flex-wrap: wrap; gap: 6px; }
+.card__info { padding: 0 16px 16px; text-align: center; }
+.card__fav { position: absolute; top: 8px; right: 8px; }
+
+/* ---------- Badges de tipo (RF02) ---------- */
+.badge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  color: #fff; font-size: 0.72rem; font-weight: 600; text-transform: capitalize; line-height: 1.5;
+}
+.badge--normal { background: var(--t-normal); }
+.badge--fire { background: var(--t-fire); }
+.badge--water { background: var(--t-water); }
+.badge--electric { background: var(--t-electric); }
+.badge--grass { background: var(--t-grass); }
+.badge--ice { background: var(--t-ice); }
+.badge--fighting { background: var(--t-fighting); }
+.badge--poison { background: var(--t-poison); }
+.badge--ground { background: var(--t-ground); }
+.badge--flying { background: var(--t-flying); }
+.badge--psychic { background: var(--t-psychic); }
+.badge--bug { background: var(--t-bug); }
+.badge--rock { background: var(--t-rock); }
+.badge--ghost { background: var(--t-ghost); }
+.badge--dragon { background: var(--t-dragon); }
+.badge--dark { background: var(--t-dark); }
+.badge--steel { background: var(--t-steel); }
+.badge--fairy { background: var(--t-fairy); }
+
+/* ---------- Favoritos (RF04) ---------- */
+.fav-btn { border: 0; background: none; cursor: pointer; color: var(--c-muted); padding: 4px; }
+.fav-btn:hover { color: var(--c-gold); }
+.fav-btn--active { color: var(--c-gold); }
+
+/* ---------- Detalhes (RF03) ---------- */
+.details__back { display: inline-block; margin-bottom: 12px; color: var(--c-primary); text-decoration: none; font-weight: 500; }
+.details__header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.details__sprite { width: 120px; height: 120px; image-rendering: pixelated; }
+.details__title { flex: 1; min-width: 180px; }
+.details__name { margin: 4px 0; text-transform: capitalize; }
+.details__number { color: var(--c-muted); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.02em; }
+.details__types { display: flex; gap: 8px; }
+
+.details__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 16px 0; }
+.details__race { background: var(--c-surface); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.details__race h3, .details__stats-title { margin: 0 0 8px; font-size: 1rem; }
+.details__abilities { margin: 8px 0 16px; }
+.details__abilities h2 { font-size: 1rem; margin: 0 0 8px; }
+.details__abilities ul { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.details__abilities li { background: var(--c-border); padding: 2px 10px; border-radius: 999px; font-size: 0.78rem; text-transform: capitalize; }
+
+.stats { background: var(--c-surface); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.stats__row { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+.stats__label { width: 90px; font-size: 0.82rem; }
+.stats__value { width: 32px; text-align: right; font-weight: 700; }
+.stats__bar { flex: 1; height: 10px; background: var(--c-border); border-radius: 999px; overflow: hidden; }
+.stats__fill { display: block; height: 100%; background: var(--c-primary); border-radius: 999px; }
+
+/* ---------- Estados (RNF03) ---------- */
+.feedback { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 48px 16px; text-align: center; }
+.feedback--error { color: #b91c1c; }
+.feedback--empty { color: var(--c-muted); }
+.spinner {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 3px solid var(--c-border); border-top-color: var(--c-primary);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Botões genéricos ---------- */
+.btn {
+  border: 0; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-weight: 600;
+  background: var(--c-primary); color: #fff; font-size: 0.95rem;
+}
+.btn:hover { background: var(--c-primary-dark); }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.btn--ghost { background: var(--c-surface); color: var(--c-text); border: 1px solid var(--c-border); }
+
+/* ---------- Acessibilidade (RNF05) ---------- */
+:focus-visible { outline: 3px solid rgba(227, 53, 13, 0.5); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ---------- Responsivo (RNF02) ---------- */
+@media (max-width: 640px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+  .navbar { flex-direction: column; gap: 4px; padding-bottom: 8px; }
+  .navbar__nav { width: 100%; justify-content: center; }
+  .toolbar { gap: 8px; }
+}
